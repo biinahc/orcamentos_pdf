@@ -1,0 +1,347 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Orçamento • Antonio Augusto</title>
+
+    <link rel="stylesheet" href="orcamento.css" />
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="topbar edit-only">
+        <div class="brand-pill">
+          <span class="dot"></span>
+          <div>
+            <div class="pill-title">Orçamento Profissional</div>
+            <div class="pill-sub">Preencha no celular e exporte em PDF</div>
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-ghost" type="button" id="btnAdd">
+            + Adicionar item
+          </button>
+          <button class="btn btn-primary" type="button" id="btnToday">
+            Colocar data de hoje
+          </button>
+          <button class="btn btn-good" type="button" id="btnPdf">
+            Exportar PDF
+          </button>
+        </div>
+      </div>
+
+      <div class="paper">
+        <div class="header edit-only">
+          <div class="head-grid">
+            <div class="logo"><img id="logoImg" alt="Logo" /></div>
+            <div class="head-title">
+              <div class="title">
+                <h1>ORÇAMENTO DE SERVIÇOS</h1>
+                <div class="badge">Nº <span id="numText">0001</span></div>
+              </div>
+              <div class="company">
+                <div>
+                  <strong>ANTONIO AUGUSTO</strong> • Mestre de Obras •
+                  Construção & Elétrica
+                </div>
+                <div><strong>CNPJ:</strong> 84.660.471/0001-16</div>
+                <div><strong>WhatsApp:</strong> (92) 99133-4620</div>
+                <div><strong>Email:</strong> antonioaugusto@gmail.com</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content">
+          <div class="edit-only">
+            <div class="section">
+              <div class="section-head">Dados do Cliente</div>
+              <div class="section-body">
+                <div class="grid-3">
+                  <div>
+                    <label>Cliente / Responsável</label
+                    ><input id="cliente" placeholder="Nome do cliente" />
+                  </div>
+                  <div>
+                    <label>Local do serviço / Endereço</label
+                    ><input id="endereco" placeholder="Endereço completo" />
+                  </div>
+                  <div>
+                    <label>Data</label
+                    ><input id="data" placeholder="dd/mm/aaaa" />
+                  </div>
+                </div>
+                <div class="grid-3 mt-10">
+                  <div>
+                    <label>Previsão de início (opcional)</label
+                    ><input id="inicio" placeholder="dd/mm/aaaa" />
+                  </div>
+                  <div>
+                    <label>Previsão de término (opcional)</label
+                    ><input id="termino" placeholder="dd/mm/aaaa" />
+                  </div>
+                  <div>
+                    <label>Qtd. de pessoas (opcional)</label
+                    ><input
+                      id="pessoas"
+                      inputmode="numeric"
+                      placeholder="Ex.: 2"
+                    />
+                  </div>
+                </div>
+                <div class="mt-10">
+                  <label>Descrição do pedido</label>
+                  <textarea
+                    id="descricaoPedido"
+                    placeholder="Ex.: Reforma, instalação elétrica, manutenção, etc."
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+
+            <div class="section mt-14">
+              <div class="section-head">
+                <span>Itens do Orçamento</span
+                ><span class="muted">No celular vira cards</span>
+              </div>
+              <div class="section-body">
+                <div id="itemsList" class="items-list"></div>
+                <div class="items-actions">
+                  <button class="btn btn-ghost" type="button" id="btnAdd2">
+                    + Adicionar item
+                  </button>
+                </div>
+
+                <div class="totals">
+                  <div class="obs-area">
+                    <label>Observações / Condições (obs: descrição)</label>
+                    <div class="checklist">
+                      <div class="checkitem">
+                        <input type="checkbox" id="ck_testado" checked /><label
+                          for="ck_testado"
+                          >Todo o serviço será entregue pronto e testado</label
+                        >
+                      </div>
+                      <div class="checkitem">
+                        <input type="checkbox" id="ck_material" /><label
+                          for="ck_material"
+                          >Material por responsabilidade do contratante</label
+                        >
+                      </div>
+                      <div class="checkitem">
+                        <input type="checkbox" id="ck_refeicao" /><label
+                          for="ck_refeicao"
+                          >Refeição e transporte inclusos no orçamento</label
+                        >
+                      </div>
+                      <div class="checkitem">
+                        <input type="checkbox" id="ck_pessoas" checked /><label
+                          for="ck_pessoas"
+                          >Informar quantidade de pessoas no serviço</label
+                        >
+                      </div>
+                      <div class="checkitem">
+                        <input
+                          type="checkbox"
+                          id="ck_pagamento"
+                          checked
+                        /><label for="ck_pagamento"
+                          >Informar forma de pagamento</label
+                        >
+                      </div>
+                      <div class="checkitem">
+                        <input type="checkbox" id="ck_recado" checked /><label
+                          for="ck_recado"
+                          >Adicionar recado de encerramento</label
+                        >
+                      </div>
+                    </div>
+                    <textarea
+                      id="obs"
+                      placeholder="- (as opções marcadas acima aparecem aqui automaticamente)"
+                    ></textarea>
+                    <div class="hint">
+                      Dica: marque/desmarque as opções e o texto das observações
+                      vai se montar sozinho (você pode editar também).
+                    </div>
+                  </div>
+
+                  <div class="total-box">
+                    <div class="muted">Resumo</div>
+                    <div class="total-line">
+                      <span>Subtotal</span><span id="subtotal">R$ 0,00</span>
+                    </div>
+                    <div class="mt-10">
+                      <label class="label-tight">Desconto (R$)</label
+                      ><input
+                        id="desconto"
+                        inputmode="decimal"
+                        placeholder="0,00"
+                      />
+                    </div>
+                    <div class="mt-10">
+                      <label class="label-tight">Mão de obra (R$)</label
+                      ><input
+                        id="maoDeObra"
+                        inputmode="decimal"
+                        placeholder="0,00"
+                      />
+                    </div>
+                    <div class="mt-10">
+                      <label class="label-tight"
+                        >Pagamento de entrada (R$) (opcional)</label
+                      >
+                      <input
+                        id="entrada"
+                        inputmode="decimal"
+                        placeholder="0,00"
+                      />
+                      <div class="muted mt-6">
+                        Se for “0,00”, entende-se que não há entrada.
+                      </div>
+                    </div>
+                    <div class="total-line total-big">
+                      <span>TOTAL</span><span id="total">R$ 0,00</span>
+                    </div>
+                    <div class="muted mt-6" id="totalExtenso"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="footer">
+              <div class="sign">
+                <div class="muted">Assinatura do responsável</div>
+                <div class="sign-box">
+                  <img id="sigImg" class="sign-img" alt="Assinatura" />
+                </div>
+                <div class="sign-name">Antônio Augusto da Silva</div>
+              </div>
+              <div class="num-box">
+                <div class="muted">Número do orçamento</div>
+                <input id="num" placeholder="0001" />
+              </div>
+            </div>
+          </div>
+
+          <section id="printDoc" class="print-only">
+            <div class="p-header">
+              <div class="p-brand">
+                <img id="pLogo" class="p-logo" alt="Logo" />
+                <div class="p-brand-text">
+                  <div class="p-title">ORÇAMENTO DE SERVIÇOS</div>
+                  <div class="p-subtitle">
+                    Antonio Augusto • Mestre de Obras • Construção & Elétrica
+                  </div>
+                  <div class="p-meta">
+                    <span><strong>CNPJ:</strong> 84.660.471/0001-16</span>
+                    <span><strong>WhatsApp:</strong> (92) 99133-4620</span>
+                    <span
+                      ><strong>Email:</strong> antonioaugusto@gmail.com</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="p-chip">
+                <div>
+                  <strong>Orçamento Nº</strong> <span id="pNum">0001</span>
+                </div>
+                <div><strong>Data:</strong> <span id="pData">—</span></div>
+              </div>
+            </div>
+
+            <div class="p-grid">
+              <div class="p-card">
+                <div class="p-card-title">Cliente</div>
+                <div class="p-row">
+                  <span class="p-label">Cliente/Responsável:</span>
+                  <span id="pCliente">—</span>
+                </div>
+                <div class="p-row">
+                  <span class="p-label">Endereço:</span>
+                  <span id="pEndereco">—</span>
+                </div>
+                <div class="p-row">
+                  <span class="p-label">Previsão:</span>
+                  <span id="pPrevisao">—</span>
+                </div>
+                <div class="p-row">
+                  <span class="p-label">Equipe:</span>
+                  <span id="pPessoas">—</span>
+                </div>
+              </div>
+
+              <div class="p-card">
+                <div class="p-card-title">Descrição do pedido</div>
+                <div id="pDescricao" class="p-text">—</div>
+              </div>
+            </div>
+
+            <div class="p-card" style="margin: 0 18px 12px">
+              <div class="p-card-title">Itens do orçamento</div>
+              <table class="p-table">
+                <thead>
+                  <tr>
+                    <th>Serviço/Material</th>
+                    <th class="tr">Qtd</th>
+                    <th class="tr">Valor unit. (R$)</th>
+                    <th class="tr">Subtotal (R$)</th>
+                  </tr>
+                </thead>
+                <tbody id="pItens"></tbody>
+              </table>
+            </div>
+
+            <div class="p-grid">
+              <div class="p-card">
+                <div class="p-card-title">Observações / Condições</div>
+                <div id="pObs" class="p-text">—</div>
+                <div class="p-thanks" id="pThanks">
+                  No aguardo de sua resposta, desde já agradecemos.
+                </div>
+              </div>
+
+              <div class="p-card p-resumo">
+                <div class="p-card-title">Resumo</div>
+                <div class="p-kv">
+                  <span>Subtotal</span><span id="pSubtotal">R$ 0,00</span>
+                </div>
+                <div class="p-kv">
+                  <span>Desconto</span><span id="pDesconto">R$ 0,00</span>
+                </div>
+                <div class="p-kv">
+                  <span>Mão de obra</span><span id="pMaoObra">R$ 0,00</span>
+                </div>
+                <div class="p-kv">
+                  <span>Entrada</span><span id="pEntrada">R$ 0,00</span>
+                </div>
+                <div class="p-total">
+                  <span>TOTAL</span><span id="pTotal">R$ 0,00</span>
+                </div>
+                <div class="p-extenso" id="pTotalExtenso"></div>
+              </div>
+            </div>
+
+            <div class="p-sign">
+              <div class="p-sign-left">
+                <div class="p-sign-label">Assinatura do responsável</div>
+                <div class="p-sign-box">
+                  <img id="pAss" class="p-ass" alt="Assinatura" />
+                </div>
+                <div class="p-sign-name">Antônio Augusto da Silva</div>
+              </div>
+              <div class="p-sign-right">
+                <div class="p-sign-label">Contato</div>
+                <div class="p-contact">WhatsApp: (92) 99133-4620</div>
+                <div class="p-contact">Email: antonioaugusto@gmail.com</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <script src="orcamento.js"></script>
+  </body>
+</html>
